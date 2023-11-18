@@ -1,6 +1,6 @@
 # TryHackMe
 
-[Git Happens](/Walkthroughs/GitHappens/README.md): (*Easy*)
+[Git Happens](Walkthroughs/GitHappens/README.md): (*Easy*)
 
 -----
 
