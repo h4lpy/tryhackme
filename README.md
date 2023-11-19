@@ -1,6 +1,7 @@
 # TryHackMe
 
 [Git Happens](Walkthroughs/GitHappens/README.md): (*Easy*)
+[Mr Robot CTF](/Walkthroughs/MrRobotCTF/README.md): (*Medium*)
 
 -----
 
