@@ -1,4 +1,4 @@
-# Git Happens | Easy
+# Git Happens
 
 ## Overview
 

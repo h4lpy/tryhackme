@@ -1,7 +1,9 @@
 # TryHackMe
 
-[Git Happens](Walkthroughs/GitHappens/README.md): (*Easy*)
-[Mr Robot CTF](/Walkthroughs/MrRobotCTF/README.md): (*Medium*)
+- [Git Happens](Walkthroughs/GitHappens/README.md): (*Easy*)
+- [Pickle Rick](/Walkthroughs/PickleRick/README.md): (*Easy*)
+- [RootMe](/Walkthroughs/RootMe/README.md): (*Easy*)
+- [Mr Robot CTF](/Walkthroughs/MrRobotCTF/README.md): (*Medium*)
 
 -----
 
