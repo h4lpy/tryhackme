@@ -30,7 +30,7 @@ Opening the provided website, we are shown a ChatGPT-style prompt. Playing aroun
 
 For example, we can ask for **McGreedy's personal email address**:
 
-![Advent of Cyber 2023 Day 1 - McGreedy Email](aoc2023d1_mcgreedy_email.png)
+![Advent of Cyber 2023 Day 1 - McGreedy Email](/images/aoc2023d1_mcgreedy_email.png)
 
 ```
 t.mcgreedy@antacticrafts.thm
