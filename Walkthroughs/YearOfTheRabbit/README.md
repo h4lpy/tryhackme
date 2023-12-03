@@ -134,7 +134,7 @@ The file `.th1s_m3ss4g3_15_f0r_gw3nd0l1n3_0nly!` shows their credentials:
 
 Can now `su` to `gwendoline` and view the contents of `user.txt` within `/home/gwendoline`:
 
-![Year of the Rabbit - user.txt](yotr_user_txt.png)
+![Year of the Rabbit - user.txt](/images/yotr_user_txt.png)
 
 Running `sudo -l`, we see the following output:
 

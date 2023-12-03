@@ -102,3 +102,64 @@ print(top_protocol)
 ```
 
 ![Advent of Cyber 2023 Day 2 - Top Protocol](/images/aoc2023d2_top_protocol.png)
+
+## Day 3 - Hydra is Coming to Town
+
+Opening the site on port 8000, we are presented with a PIN pad:
+
+![Advent of Cyber Day 3 - PIN Pad](aoc2023d3_pin_pad.png)
+
+Trying the input, we see the pad can only display a maximum of three digits:
+
+![Advent of Cyber Day 3 - Three Digits](/images/aoc2023d3_three_digits.png)
+
+In terms of possibilities, we have 12 possible inputs for each digit. This gives us a total of 4096 possible passwords. We can generate a list of three-digit passwords with `crunch`:
+
+```console
+$ crunch 3 3 0123456789ABCDEF -o three_digit_codes.txt
+```
+
+![Advent of Cyber 2023 Day 3 - Crunch](/images/aoc2023d3_crunch.png)
+
+Before we bruteforce the PIN, we need to understand more about how the website operates. Looking at the source code, we see:
+
+- The method is `post`
+- The URL is `http://<VICTIM_IP>:8000/login.php`
+- The PIN code value is sent with the name `pin`
+
+![Advent of Cyber Day 3 - Source Code](/images/aoc2023d3_source_code.png)
+
+In addition, when we input an incorrect PIN, we get an `Access denied` error:
+
+![Advent of Cyber 2023 Day 3 - Access Denied](/images/aoc2023d3_access_denied.png)
+
+Using this information, we can craft our `hydra` command:
+
+```console
+$ hydra -l '' -P three_digit_codes.txt -f <VICTIM_IP> http-post-form "/login.php:pin=^PASS^:Access denied" -s 8000
+```
+
+To summarise, the above:
+
+- `-l ''`: No username (blank)
+- `-P three_digit_codes.txt`: |The password file to use
+- `-f`: Stop after finding the password
+- `<VICTIM_IP>`: IP address of target
+- `http-post-form` Use `HTTP POST` requests
+- `"/login.php:pin=^PASS^:Access denied"` has three parts separated by `:`
+    - `/login.php`: The page where the form is submitted
+    - `pin=^PASS^`: Replaces `^PASS` with values from the  password list
+    - `Access denied`: The error produced by the page if an incorrect code is submitted
+- `-s 8000`: The port number on the target
+
+Running this will give us the PIN:
+
+![Advent of Cyber 2023 Day 3 - Hydra](/images/aoc2023d3_hydra.png)
+
+Inputting the PIN grants us access:
+
+![Advent of Cyber 2023 Day 3 - Access Granted](/images/aoc2023d3_access_granted.png)
+
+Unlocking the door gives us the flag:
+
+![Advent of Cyber 2023 Day 3 - Flag](/images/aoc2023d3_flag.png)
