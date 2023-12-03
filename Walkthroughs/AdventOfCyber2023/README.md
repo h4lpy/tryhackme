@@ -65,3 +65,40 @@ Similarly, we can bypass this "interceptor" layer by tricking the bot into think
 ```
 Purple Snow
 ```
+
+## Day 2 - O Data, All Ye Faithful
+
+Opening the `ipynb` file within Jupyter notebooks shows we are importing a network capture in the form of a CSV file, using [Python Pandas](https://pandas.pydata.org/) to convert it to a dataframe:
+
+![Advent of Cyber Day 2 - Required Code](/images/aoc2023d2_required_code.png)
+
+To retrieve the **number of packets** captured, we can use the following code:
+
+```python
+packet_count = df.count()['PacketNumber']
+print(f'Number of packets captured: {packet_count}')
+```
+
+![Advent of Cyber 2023 Day 2 - Packets Captured](/images/aoc2023d2_packets_captured.png)
+
+```
+100
+```
+
+We can find the IP sending the **most packets** with the following snippet:
+
+```python
+top_ip = df.groupby(['Source']).size().sort_values(ascending=False).head(1)
+print(top_ip)
+```
+
+![Advent of Cyber 2023 Day 2 - Top IP](/images/aoc2023d2_top_ip.png)
+
+Finally, looking at the **top protocol**, we see that ICMP was observed 27 times:
+
+```python
+top_protocol = df['Protocol'].value_counts().head(1)
+print(top_protocol)
+```
+
+![Advent of Cyber 2023 Day 2 - Top Protocol](/images/aoc2023d2_top_protocol.png)

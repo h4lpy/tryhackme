@@ -21,7 +21,7 @@ PORT   STATE SERVICE
 80/tcp open  http
 
 Nmap done: 1 IP address (1 host up) scanned in 16.79 seconds
-```
+```v  -00fgv
 
 Running a full scan against these ports show Apache version `2.4.29` is running on an Ubuntu system:
 
