@@ -730,19 +730,3 @@ $ sudo systemctl restart jenkins
 
 ![Advent of Cyber 2023 Day 12 - Jenkins Sign In](/images/aoc2023d12_jenkins_sign_in.png)
 
-```
-tracy:13_1n_33        # SSH
-```
-
-
-`/root/flag.txt`
-
-```
-ezRo0tW1thoutDiD
-```
-
-SSH flag:
-
-```
-Ne3d2SecureTh1sSecureSh31l
-```
